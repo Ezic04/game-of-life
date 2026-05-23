@@ -38,4 +38,5 @@ public class Store<S, T> implements ComonadStore<S, T> {
     public S pos() {
         return s;
     }
+
 }

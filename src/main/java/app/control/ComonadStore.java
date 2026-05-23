@@ -3,6 +3,7 @@ package app.control;
 import java.util.function.Function;
 
 public interface ComonadStore<S, T> extends Comonad<T> {
+
     @Override
     <R> ComonadStore<S, R> map(Function<T, R> f);
 
@@ -32,4 +33,5 @@ public interface ComonadStore<S, T> extends Comonad<T> {
     T peek(S s);
 
     S pos();
+
 }

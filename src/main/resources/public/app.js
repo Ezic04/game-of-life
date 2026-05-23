@@ -5,9 +5,16 @@ const socket = new WebSocket('ws://' + location.host + '/sim');
 socket.binaryType = 'arraybuffer';
 
 socket.onmessage = function (event) {
-    const buffer = new Uint8Array(event.data);
-    const width = canvas.width;
-    const height = canvas.height;
+    const dataView = new DataView(event.data);
+    const width = dataView.getInt32(0);
+    const height = dataView.getInt32(4);
+
+    if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    const buffer = new Uint8Array(event.data, 8);
     const imageData = ctx.createImageData(width, height);
     const data = imageData.data;
 

@@ -12,17 +12,21 @@
             align-items: center;
             height: 100vh;
             background-color: #222;
+            overflow: hidden;
         }
 
         canvas {
             background-color: #000;
             image-rendering: pixelated;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
     </style>
 </head>
 
 <body>
-    <canvas id="grid" width="1024" height="1024"></canvas>
+    <canvas id="grid"></canvas>
     <script src="app.js"></script>
 </body>
 
