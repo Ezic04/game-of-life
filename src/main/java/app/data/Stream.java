@@ -29,6 +29,10 @@ public record Stream<T>(T head, Supplier<Stream<T>> tail) implements Functor<T> 
         return new Stream<>(t, () -> repeat(t));
     }
 
+    public static <T> Stream<T> repeatM(Supplier<T> t) {
+        return new Stream<>(t.get(), () -> repeatM(t));
+    }
+
     public Stream<T> cropStream(int limit, T fallback) {
         if (limit <= 0) {
             return repeat(fallback);

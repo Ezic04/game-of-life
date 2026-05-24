@@ -75,22 +75,22 @@ public class Main {
     private static Zipper2D<BinCell> createBoard() {
         Zipper<BinCell> initRow = createRandomRow();
         Zipper<Zipper<BinCell>> grid = new Zipper.Zip<>(
-                Stream.iterate(y -> createRandomRow(), createRandomRow()),
+                Stream.repeatM(Main::createRandomRow),
                 initRow,
-                Stream.iterate(y -> createRandomRow(), createRandomRow()));
+                Stream.repeatM(Main::createRandomRow));
 
         return new Zipper2D.Zip2D<>(grid);
     }
 
     private static Zipper<BinCell> createRandomRow() {
         return new Zipper.Zip<>(
-                Stream.iterate(x -> randomCell(), randomCell()),
+                Stream.repeatM(Main::randomCell),
                 randomCell(),
-                Stream.iterate(x -> randomCell(), randomCell()));
+                Stream.repeatM(Main::randomCell));
     }
 
     private static BinCell randomCell() {
-        return Math.random() < 0.1 ? BinCell.ALIVE : BinCell.DEAD;
+        return Math.random() < 0.2 ? BinCell.ALIVE : BinCell.DEAD;
     }
 
     private static byte[] render(Zipper2D<BinCell> state, int width, int height) {
@@ -120,8 +120,5 @@ public class Main {
             rowStart = rowStart.move(Direction.DOWN);
         }
         return buffer;
-    }
-
-    private record Coordinate(int x, int y) {
     }
 }
